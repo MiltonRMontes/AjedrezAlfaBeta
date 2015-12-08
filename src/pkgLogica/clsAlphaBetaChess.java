@@ -6,15 +6,21 @@ import static pkgLogica.clsMovimientos.*;
 
 public class clsAlphaBetaChess implements Serializable{
     
-    public clsObjetoMensaje AlfaBetaGeneral(clsObjetoMensaje objetomensaje) {
-        objetomensaje.getMovimientos().makeMove(objetomensaje.getMovimiento());
-        objetomensaje.getMovimientos().flipBoard();
-        objetomensaje.getMovimientos().makeMove(this.alphaBeta(objetomensaje.getMovimientos(), 4, 1000000, -1000000, "", 0));
-        objetomensaje.getMovimientos().flipBoard();
-        return objetomensaje;
+    public static int  profundidad = 4;
+    public static int beta = 1000000;
+    public static int alfa = -1000000;
+    public static String movimiento1  = "";
+    public static int jugador = 0;
+    
+    public static String AlfaBetaGeneral(String movimiento) {
+        clsMovimientos.makeMove(movimiento);
+        clsMovimientos.flipBoard();
+        clsMovimientos.makeMove(alphaBeta(profundidad, beta, alfa, movimiento1, jugador));
+        clsMovimientos.flipBoard();
+        return "Movimiento generado";
     }
 
-    public String alphaBeta(clsMovimientos objetomensaje, int depth, int beta, int alpha, String move, int player) {
+    public static String alphaBeta(int depth, int beta, int alpha, String move, int player) {
         //return in the form of 1234b##########
         String list = posibleMoves();
         if (depth == 0 || list.length() == 0) {
@@ -23,12 +29,12 @@ public class clsAlphaBetaChess implements Serializable{
         list = sortMoves(list);
         player = 1 - player;//either 1 or 0
         for (int i = 0; i < list.length(); i += 5) {
-            objetomensaje.makeMove(list.substring(i, i + 5));
-            objetomensaje.flipBoard();
-            String returnString = alphaBeta(objetomensaje, depth - 1, beta, alpha, list.substring(i, i + 5), player);
+            clsMovimientos.makeMove(list.substring(i, i + 5));
+            clsMovimientos.flipBoard();
+            String returnString = alphaBeta(depth - 1, beta, alpha, list.substring(i, i + 5), player);
             int value = Integer.valueOf(returnString.substring(5));
-            objetomensaje.flipBoard();
-            objetomensaje.undoMove(list.substring(i, i + 5));
+            clsMovimientos.flipBoard();
+            clsMovimientos.undoMove(list.substring(i, i + 5));
             if (player == 0) {
                 if (value <= beta) {
                     beta = value;

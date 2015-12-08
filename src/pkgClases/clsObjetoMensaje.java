@@ -14,7 +14,7 @@ import pkgLogica.clsMovimientos;
  */
 public class clsObjetoMensaje implements Serializable{
 
-    private clsMovimientos movimientos;
+    private static clsMovimientos movimientos;
     private String movimiento;
 
     public clsObjetoMensaje() {
@@ -33,7 +33,7 @@ public class clsObjetoMensaje implements Serializable{
         this.movimiento = movimiento;
     }
 
-    public clsMovimientos getMovimientos() {
+    public static clsMovimientos getMovimientos() {
         return movimientos;
     }
 

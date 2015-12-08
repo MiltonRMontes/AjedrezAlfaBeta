@@ -44,33 +44,24 @@ public class clsAgenteGrafico extends GuiAgent {
 
     @Override
     protected void onGuiEvent(GuiEvent ge) {
-        clsObjetoMensaje objetoMensaje = ui.MoverFichas((MouseEvent) ge.getSource());
+        String objetoMensaje = ui.MoverFichas((MouseEvent) ge.getSource());
         //String dragMove = "";
-        if (!objetoMensaje.getMovimiento().equals("")) {
+        if (!objetoMensaje.equals("")) {
             this.EnviarMovimiento(objetoMensaje);
         }
     }
     
-    private void EnviarMovimiento(clsObjetoMensaje objetoMensaje){
-        try {
+    private void EnviarMovimiento(String objetoMensaje){
             ACLMessage mensaje = new ACLMessage(ACLMessage.REQUEST);
-            mensaje.setContentObject(objetoMensaje);
+            mensaje.setContent(objetoMensaje);
             mensaje.addReceiver(new AID("agenteMovimiento",false));
             send(mensaje);
             this.RecibirRespuestaMovimiento();
-        } catch (IOException ex) {
-            Logger.getLogger(clsAgenteGrafico.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     private void RecibirRespuestaMovimiento(){
-        try {
             ACLMessage mensaje = blockingReceive();
-            clsObjetoMensaje movimiento = (clsObjetoMensaje) mensaje.getContentObject();
-            ui.Igualar(movimiento);
-        } catch (UnreadableException ex) {
-            Logger.getLogger(clsAgenteGrafico.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            String movimiento = mensaje.getContent();
     }
 
     public class Comportamiento extends SimpleBehaviour {

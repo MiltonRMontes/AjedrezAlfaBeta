@@ -22,7 +22,7 @@ public class clsMovimientos implements Serializable{
         {"P", "P", "P", "P", "P", "P", "P", "P"},
         {"R", "K", "B", "Q", "A", "B", "K", "R"}};
     
-    static int kingPositionC, kingPositionL;
+    public static int kingPositionC, kingPositionL;
     static int generalDepht;
     
     public static void flipBoard() {

@@ -42,18 +42,19 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
         objeto = new clsObjetoMensaje();
         objeto.setMovimientos(movimientos);
         this.agentePropietario = agente;
-        
+        while (!"A".equals(clsMovimientos.chessBoard[clsMovimientos.kingPositionC/8][clsMovimientos.kingPositionC%8])) {clsMovimientos.kingPositionC++;}//get King's location
+        while (!"a".equals(clsMovimientos.chessBoard[clsMovimientos.kingPositionL/8][clsMovimientos.kingPositionL%8])) {clsMovimientos.kingPositionL++;}//get king's location
         if (humanAsWhite==0) {
             long startTime=System.currentTimeMillis();
             clsAlphaBetaChess alfa = new clsAlphaBetaChess();
-            movimientos.makeMove(alfa.alphaBeta(objeto.getMovimientos(), 4, 1000000, -1000000, "", 0));
+            clsMovimientos.makeMove(alfa.alphaBeta(4, 1000000, -1000000, "", 0));
             long endTime=System.currentTimeMillis();
             System.out.println("That took "+(endTime-startTime)+" milliseconds");
-            objeto.getMovimientos().flipBoard();
+            clsMovimientos.flipBoard();
             repaint();
         }
-        objeto.getMovimientos().makeMove("7655 ");
-        objeto.getMovimientos().undoMove("7655 ");        
+        clsMovimientos.makeMove("7655 ");
+        clsMovimientos.undoMove("7655 ");        
         
         
     }
@@ -73,7 +74,7 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
         chessPiecesImage = new ImageIcon("ChessPieces.png").getImage();
         for (int i = 0; i < 64; i++) {
             int j = -1, k = -1;
-            switch (movimientos.chessBoard[i / 8][i % 8]) {
+            switch (clsMovimientos.chessBoard[i / 8][i % 8]) {
                 case "P":
                     j = 5;
                     k = 0;
@@ -138,7 +139,7 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
         repaint();
     }
 
-    public clsObjetoMensaje MoverFichas(MouseEvent e) {
+    public String MoverFichas(MouseEvent e) {
         String dragMove = "";
         if (una_vez == 1) {
             if (e.getX() < 8 * squareSize && e.getY() < 8 * squareSize) {
@@ -146,14 +147,14 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
                 newMouseX = e.getX();
                 newMouseY = e.getY();
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    if (newMouseY / squareSize == 0 && mouseY / squareSize == 1 && "P".equals(movimientos.chessBoard[mouseY / squareSize][mouseX / squareSize])) {
+                    if (newMouseY / squareSize == 0 && mouseY / squareSize == 1 && "P".equals(clsMovimientos.chessBoard[mouseY / squareSize][mouseX / squareSize])) {
                         //pawn promotion
-                        dragMove = "" + mouseX / squareSize + newMouseX / squareSize + movimientos.chessBoard[newMouseY / squareSize][newMouseX / squareSize] + "QP";
+                        dragMove = "" + mouseX / squareSize + newMouseX / squareSize + clsMovimientos.chessBoard[newMouseY / squareSize][newMouseX / squareSize] + "QP";
                     } else {
                         //regular move
-                        dragMove = "" + mouseY / squareSize + mouseX / squareSize + newMouseY / squareSize + newMouseX / squareSize + movimientos.chessBoard[newMouseY / squareSize][newMouseX / squareSize];
+                        dragMove = "" + mouseY / squareSize + mouseX / squareSize + newMouseY / squareSize + newMouseX / squareSize + clsMovimientos.chessBoard[newMouseY / squareSize][newMouseX / squareSize];
                     }
-                    String userPosibilities = movimientos.posibleMoves();
+                    String userPosibilities = clsMovimientos.posibleMoves();
 
                     if (userPosibilities.replaceAll(dragMove, "").length() < userPosibilities.length()) {
                         //if valid move
@@ -167,7 +168,7 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
         }
         this.Repintar();
         objeto.setMovimiento(dragMove);
-        return objeto;
+        return dragMove;
     }
     
     /**
