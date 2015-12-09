@@ -45,6 +45,7 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
             clsMovimientos.kingPositionL++;
         }//get king's location
         if (humanAsWhite == 0) {
+            clsMovimientos.flipBoard();
             jtaUsuario.setBackground(Color.white);
             jtaMaquina.setBackground(Color.black);
             jtaActual.setBackground(Color.black);
@@ -61,7 +62,6 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
         }
         clsMovimientos.makeMove("7655 ");
         clsMovimientos.undoMove("7655 ");
-
     }
 
     @Override
@@ -346,7 +346,7 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
 
         lblColorActual.setText("Turno Actual");
 
-        lblRespuesta.setText("Movimiento Máquina");
+        lblRespuesta.setText("Movimiento Máquina:");
 
         lblMostrarRespuesta.setText("-");
 

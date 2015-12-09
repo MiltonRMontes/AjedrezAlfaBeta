@@ -14,12 +14,17 @@ import pkgClases.clsUsuario;
  */
 public class frmCrearUsuario extends javax.swing.JFrame {
 
-//    
-//    /**
-//     * Creates new form frmCrearUsuario
-//     */
+    /**
+     * Variable que guarda el id del usuario.
+     */
     String id;
+    /**
+     * Variable que guarda el nombre del usuario.
+     */
     String nombre;
+    /**
+     * Variable que me va a guardar un usuario.
+     */
     clsUsuario usuario;
     public frmCrearUsuario() {        
         initComponents();
@@ -88,6 +93,10 @@ public class frmCrearUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método del botón btnGuardar donde me inserta un usuario en la base de datos
+     * @param evt 
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         id = txtDocumento.getText();
         nombre = txtNombre.getText();        

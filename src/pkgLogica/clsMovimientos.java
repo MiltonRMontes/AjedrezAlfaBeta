@@ -13,7 +13,7 @@ import jade.util.leap.Serializable;
  */
 public class clsMovimientos implements Serializable{
     /**
-     * 
+     * Tablero inicial.
      */
     public static String chessBoard[][] = {
         {"r", "k", "b", "q", "a", "b", "k", "r"},
@@ -24,10 +24,14 @@ public class clsMovimientos implements Serializable{
         {" ", " ", " ", " ", " ", " ", " ", " "},
         {"P", "P", "P", "P", "P", "P", "P", "P"},
         {"R", "K", "B", "Q", "A", "B", "K", "R"}};
-    
+    /**
+     * Posición del rey de la máquina y del usuario, turno 
+     */
     public static int kingPositionC, kingPositionL, turno;
-    static int generalDepht;
     
+    /**
+     * Voltea el tablero para el buen funcionamiento del programa.
+     */
     public static void flipBoard() {
         String temp;
         for (int i = 0; i < 32; i++) {
@@ -49,6 +53,10 @@ public class clsMovimientos implements Serializable{
         kingPositionL = 63 - kingTemp;
     }
 
+    /**
+     * Realiza el movimiento recibido en el tablero.
+     * @param move Variable que es el movimiento que se va a realizar.
+     */
     public static void makeMove(String move) {
         if (move.charAt(4) != 'P') {
             chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))] = chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))];
@@ -63,6 +71,10 @@ public class clsMovimientos implements Serializable{
         }
     }
 
+    /**
+     * Deshace el movimiento recibido en el tablero.
+     * @param move Variable que es el movimiento que se va a realizar.
+     */
     public static void undoMove(String move) {
         if (move.charAt(4) != 'P') {
             chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))] = chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))];
@@ -77,6 +89,10 @@ public class clsMovimientos implements Serializable{
         }
     }
 
+    /**
+     * Método que devuelve un string que tiene de los posibles movimientos.
+     * @return Devuelve la lista de los posibles movimientos.
+     */
     public static String posibleMoves() {
         String list = "";
         for (int i = 0; i < 64; i++) {
@@ -104,6 +120,11 @@ public class clsMovimientos implements Serializable{
         return list;//x1,y1,x2,y2,captured piece
     }
 
+    /**
+     * Método que devuelve un string que tiene de los posibles movimientos del Peón. 
+     * @param i Variable que dice la posición del tablero.
+     * @return Devuelve los posibles movimientos del Peón.
+     */
     public static String posibleP(int i) {
         String list = "", oldPiece;
         int r = i / 8, c = i % 8;
@@ -185,6 +206,11 @@ public class clsMovimientos implements Serializable{
         return list;
     }
 
+    /**
+     * Método que devuelve un string que tiene de los posibles movimientos de la Torre. 
+     * @param i Variable que dice la posición del tablero.
+     * @return Devuelve los posibles movimientos de la Torre.
+     */
     public static String posibleR(int i) {
         String list = "", oldPiece;
         int r = i / 8, c = i % 8;
@@ -244,6 +270,11 @@ public class clsMovimientos implements Serializable{
         return list;
     }
 
+    /**
+     * Método que devuelve un string que tiene de los posibles movimientos del Caballo. 
+     * @param i Variable que dice la posición del tablero.
+     * @return Devuelve los posibles movimientos del Caballo.
+     */
     public static String posibleK(int i) {
         String list = "", oldPiece;
         int r = i / 8, c = i % 8;
@@ -278,6 +309,11 @@ public class clsMovimientos implements Serializable{
         return list;
     }
 
+    /**
+     * Método que devuelve un string que tiene de los posibles movimientos del Alfil. 
+     * @param i Variable que dice la posición del tablero.
+     * @return Devuelve los posibles movimientos del Alfil.
+     */
     public static String posibleB(int i) {
         String list = "", oldPiece;
         int r = i / 8, c = i % 8;
@@ -313,7 +349,12 @@ public class clsMovimientos implements Serializable{
         }
         return list;
     }
-
+    
+    /**
+     * Método que devuelve un string que tiene de los posibles movimientos de la Reina. 
+     * @param i Variable que dice la posición del tablero.
+     * @return Devuelve los posibles movimientos de la Reina. 
+     */
     public static String posibleQ(int i) {
         String list = "", oldPiece;
         int r = i / 8, c = i % 8;
@@ -352,6 +393,11 @@ public class clsMovimientos implements Serializable{
         return list;
     }
 
+    /**
+     * Método que devuelve un string que tiene de los posibles movimientos del Rey. 
+     * @param i Variable que dice la posición del tablero.
+     * @return Devuelve los posibles movimientos del Rey.
+     */
     public static String posibleA(int i) {
         String list = "", oldPiece;
         int r = i / 8, c = i % 8;
@@ -402,6 +448,10 @@ public class clsMovimientos implements Serializable{
         return newListA + newListB;
     }
 
+    /**
+     * Metodo que determina si el rey está en jaque o no.
+     * @return Devuelve un boolena que determina si el rey está a salvo o no.
+     */
     public static boolean kingSafe() {
         //bishop/queen
         int temp = 1;
@@ -493,6 +543,9 @@ public class clsMovimientos implements Serializable{
         return true;
     }
     
+    /**
+     * Cambia el jugador a turno cada vez que se realiza un movimiento.
+     */
     public static void CambiarTurno(){
         if (turno == 0) {
             turno = 1;
@@ -500,5 +553,13 @@ public class clsMovimientos implements Serializable{
         else{
             turno = 0;
         }
+    }
+    
+    /**
+     * Modifica el jugador que inicia el juego.
+     * @param turno1 Jugador que inicia el juego.
+     */
+    public static void setTurno(int turno1){
+        turno = turno1;
     }
 }

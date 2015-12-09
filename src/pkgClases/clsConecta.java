@@ -18,24 +18,28 @@ public class clsConecta {
     java.sql.Statement statement;
     java.sql.ResultSet resulset;
 
+    /**
+     * Inicializa la conexión con la base de datos.
+     */
     public clsConecta() {
         try {
-            // Cargar el Driver
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException ex) {
             System.out.println("Error cargando el Driver");
         } finally {
-            // Que hace despues de capturar un error
         }
         try {
-            // Establer la conexión con el motor
             conexion = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/bdAjedrezAlfabeta", "postgres", "admin");
-            System.out.println("Si conectó");
         } catch (SQLException ex) {
             System.out.println("Error conectandose con el motor");
         }
     }
     
+    /**
+     * Ejecuta la instrucciones SQL en la base de datos.
+     * @param sql Variable que es la instrucción SQL que se recibe desde la clase DAO.
+     * @return Devuelve la información traída desde la base de datos.
+     */
      public java.sql.ResultSet Procesar(String sql) {
         try {
             statement = conexion.createStatement();
