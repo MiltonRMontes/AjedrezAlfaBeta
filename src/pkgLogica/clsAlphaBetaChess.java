@@ -10,13 +10,16 @@ public class clsAlphaBetaChess implements Serializable{
     public static int beta = 1000000;
     public static int alfa = -1000000;
     public static String movimiento1  = "";
-    public static int jugador = 0;
+    public static int jugador;
+    public static int turno;
     
     public static String AlfaBetaGeneral(String movimiento) {
         clsMovimientos.makeMove(movimiento);
         clsMovimientos.flipBoard();
+        turno = 0;
         clsMovimientos.makeMove(alphaBeta(profundidad, beta, alfa, movimiento1, jugador));
         clsMovimientos.flipBoard();
+        turno = 1;
         return "Movimiento generado";
     }
 

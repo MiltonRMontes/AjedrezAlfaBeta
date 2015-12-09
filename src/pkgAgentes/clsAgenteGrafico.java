@@ -6,19 +6,14 @@
 package pkgAgentes;
 
 import jade.core.AID;
-import pkgVista.frmAjedrez;
+import pkgVista.frmCrearUsuario;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.UnreadableException;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import pkgClases.clsObjetoMensaje;
 import pkgVista.pnlUserInterface;
 
 /**
@@ -27,7 +22,7 @@ import pkgVista.pnlUserInterface;
  */
 public class clsAgenteGrafico extends GuiAgent {
 
-    frmAjedrez frm2;
+    frmCrearUsuario frm2;
     JFrame frm;
     GuiAgent agente;
     pnlUserInterface ui;
@@ -73,13 +68,12 @@ public class clsAgenteGrafico extends GuiAgent {
             frm = new JFrame("Ajedrez");
             frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             Object[] option = {"Computador", "Persona"};
-            humanAsWhite = JOptionPane.showOptionDialog(null, "Quien va a jugar con las ficha blancas?", "Opciones", JOptionPane.YES_NO_OPTION,
+            humanAsWhite = JOptionPane.showOptionDialog(null, "Quien va a iniciar el juego?", "Opciones", JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null, option, option[1]);            
             ui = new pnlUserInterface(agente, humanAsWhite);
             frm.add(ui);
-            frm.setSize(500, 500);
-            frm.setVisible(true);
-//         
+            frm.setSize(600, 350);
+            frm.setVisible(true);//         
         }
         
         @Override
