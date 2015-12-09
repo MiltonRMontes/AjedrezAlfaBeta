@@ -9,13 +9,7 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.UnreadableException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import pkgClases.clsObjetoMensaje;
 import pkgLogica.*;
-
 /**
  *
  * @author Milton R. Montes
@@ -30,20 +24,18 @@ public class clsAgenteMovimientos extends Agent {
 
     public class Comportamiento extends CyclicBehaviour {
 
-        //clsAlphaBetaChess alfabeta = new clsAlphaBetaChess();
-
         @Override
         public void action() {
             ACLMessage mensaje = blockingReceive();
             String movimiento = mensaje.getContent();
-            String objetomensaje = this.GenerarMovimiento(movimiento);
-            this.EnviarObjeto(objetomensaje);
+            String respuesta_movimiento = this.GenerarMovimiento(movimiento);
+            this.EnviarObjeto(respuesta_movimiento);
 
         }
 
-        private void EnviarObjeto(String objetomensaje) {
+        private void EnviarObjeto(String respueta_movimiento) {
             ACLMessage mensaje = new ACLMessage(ACLMessage.INFORM);
-            mensaje.setContent(objetomensaje);
+            mensaje.setContent(respueta_movimiento);
             mensaje.addReceiver(new AID("agenteGrafico", false));
             send(mensaje);
         }

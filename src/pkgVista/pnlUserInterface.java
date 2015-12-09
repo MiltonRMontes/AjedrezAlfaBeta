@@ -134,9 +134,13 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
             }
         }
     }
+    
+    public void Decir_Movimiento(String movimiento){
+        lblMostrarRespuesta.setText(movimiento);
+    }
 
     public void Repintar() {
-        if (clsAlphaBetaChess.turno == 0) {
+        if (clsMovimientos.turno == 0) {
             jtaActual.setBackground(Color.BLACK);
         } else {
             jtaActual.setBackground(Color.white);
@@ -288,6 +292,8 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
         jScrollPane4 = new javax.swing.JScrollPane();
         jtaMaquina = new javax.swing.JTextArea();
         lblColorActual = new javax.swing.JLabel();
+        lblRespuesta = new javax.swing.JLabel();
+        lblMostrarRespuesta = new javax.swing.JLabel();
 
         lblUsuario.setText("Usuario: ");
 
@@ -340,6 +346,10 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
 
         lblColorActual.setText("Turno Actual");
 
+        lblRespuesta.setText("Movimiento Máquina");
+
+        lblMostrarRespuesta.setText("-");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -380,7 +390,11 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
                                 .addGap(27, 27, 27)
                                 .addComponent(lblColorMaquina)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblColorActual)))
+                                .addComponent(lblColorActual))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblRespuesta)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblMostrarRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(56, 56, 56))))
         );
         layout.setVerticalGroup(
@@ -416,7 +430,11 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
                     .addComponent(jScrollPane2)
                     .addComponent(jScrollPane3)
                     .addComponent(jScrollPane4))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRespuesta)
+                    .addComponent(lblMostrarRespuesta))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -450,8 +468,10 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
     private javax.swing.JLabel lblMostrarEmpatados;
     private javax.swing.JLabel lblMostrarGanados;
     private javax.swing.JLabel lblMostrarPerdidos;
+    private javax.swing.JLabel lblMostrarRespuesta;
     private javax.swing.JLabel lblMostrarUsuario;
     private javax.swing.JLabel lblPerdidos;
+    private javax.swing.JLabel lblRespuesta;
     private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 

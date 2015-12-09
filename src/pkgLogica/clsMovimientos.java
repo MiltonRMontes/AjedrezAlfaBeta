@@ -12,6 +12,9 @@ import jade.util.leap.Serializable;
  * @author Milton R. Montes
  */
 public class clsMovimientos implements Serializable{
+    /**
+     * 
+     */
     public static String chessBoard[][] = {
         {"r", "k", "b", "q", "a", "b", "k", "r"},
         {"p", "p", "p", "p", "p", "p", "p", "p"},
@@ -22,7 +25,7 @@ public class clsMovimientos implements Serializable{
         {"P", "P", "P", "P", "P", "P", "P", "P"},
         {"R", "K", "B", "Q", "A", "B", "K", "R"}};
     
-    public static int kingPositionC, kingPositionL;
+    public static int kingPositionC, kingPositionL, turno;
     static int generalDepht;
     
     public static void flipBoard() {
@@ -488,5 +491,14 @@ public class clsMovimientos implements Serializable{
             }
         }
         return true;
+    }
+    
+    public static void CambiarTurno(){
+        if (turno == 0) {
+            turno = 1;
+        }
+        else{
+            turno = 0;
+        }
     }
 }

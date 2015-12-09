@@ -1,7 +1,6 @@
 package pkgLogica;
 
 import jade.util.leap.Serializable;
-import pkgClases.clsObjetoMensaje;
 import static pkgLogica.clsMovimientos.*;
 
 public class clsAlphaBetaChess implements Serializable{
@@ -12,15 +11,17 @@ public class clsAlphaBetaChess implements Serializable{
     public static String movimiento1  = "";
     public static int jugador;
     public static int turno;
+    public static String movimiento_respuesta;
     
     public static String AlfaBetaGeneral(String movimiento) {
         clsMovimientos.makeMove(movimiento);
         clsMovimientos.flipBoard();
-        turno = 0;
-        clsMovimientos.makeMove(alphaBeta(profundidad, beta, alfa, movimiento1, jugador));
+        clsMovimientos.CambiarTurno();
+        movimiento_respuesta = alphaBeta(profundidad, beta, alfa, movimiento1, jugador);
+        clsMovimientos.makeMove(movimiento_respuesta);
         clsMovimientos.flipBoard();
-        turno = 1;
-        return "Movimiento generado";
+        clsMovimientos.CambiarTurno();
+        return movimiento_respuesta;
     }
 
     public static String alphaBeta(int depth, int beta, int alpha, String move, int player) {
