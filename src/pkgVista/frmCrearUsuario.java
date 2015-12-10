@@ -5,6 +5,7 @@
  */
 package pkgVista;
 
+import javax.swing.JOptionPane;
 import pkgClases.clsDAOUsuario;
 import pkgClases.clsUsuario;
 
@@ -26,10 +27,11 @@ public class frmCrearUsuario extends javax.swing.JFrame {
      * Variable que me va a guardar un usuario.
      */
     clsUsuario usuario;
-    public frmCrearUsuario() {        
+
+    public frmCrearUsuario() {
         initComponents();
         this.setTitle("Sign Up");
-    } 
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -94,17 +96,24 @@ public class frmCrearUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Método del botón btnGuardar donde me inserta un usuario en la base de datos.
-     * Luego oculta el frame.
+     * Método del botón btnGuardar donde me inserta un usuario en la base de
+     * datos. Luego oculta el frame.
+     *
      * @param evt Evento del click en el botón.
      */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         id = txtDocumento.getText();
-        nombre = txtNombre.getText();        
+        nombre = txtNombre.getText();
         clsDAOUsuario daoUsuario = new clsDAOUsuario();
-        usuario = new clsUsuario(id, nombre, 0,0,0);
-        daoUsuario.Insertar(usuario);
-        this.setVisible(false);
+        usuario = new clsUsuario(id, nombre, 0, 0, 0);
+        if (!daoUsuario.Insertar(usuario)) {
+            JOptionPane.showMessageDialog(this, "No se pudo crear el usuario", "Error", 0);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "El usuario se creó correctamente", "Realizado", 1);
+            this.setVisible(false);
+        }
+            
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 

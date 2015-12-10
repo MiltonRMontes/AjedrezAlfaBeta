@@ -7,13 +7,15 @@ package pkgClases;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Milton R. Montes
  */
 public class clsConecta {
-    
+
     java.sql.Connection conexion;
     java.sql.Statement statement;
     java.sql.ResultSet resulset;
@@ -34,13 +36,14 @@ public class clsConecta {
             System.out.println("Error conectandose con el motor");
         }
     }
-    
+
     /**
      * Ejecuta la instrucciones SQL en la base de datos.
-     * @param sql Variable que es la instrucción SQL que se recibe desde la clase DAO.
+     * @param sql Variable que es la instrucción SQL que se recibe desde la
+     * clase DAO.
      * @return Devuelve la información traída desde la base de datos.
      */
-     public java.sql.ResultSet Procesar(String sql) {
+    public java.sql.ResultSet Procesar(String sql) {
         try {
             statement = conexion.createStatement();
             resulset = statement.executeQuery(sql);
@@ -49,6 +52,20 @@ public class clsConecta {
         }
         return resulset;
     }
-    
-    
+
+    /**
+     * Ejecuta la instrucciones SQL en la base de datos.
+     * @param sql Variable que es la instrucción SQL que se recibe desde la
+     * clase DAO.
+     * @return Devuelve true si ejecuta satisfactoriamente la instrucción sql.
+     */
+    public boolean Insertar(String sql) {
+        try {
+            statement = conexion.createStatement();
+            return !statement.execute(sql);
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+
 }

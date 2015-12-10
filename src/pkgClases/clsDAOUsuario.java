@@ -29,7 +29,9 @@ public class clsDAOUsuario {
 
     /**
      * Método que devuelve un usuario con respecto al id recibido.
-     * @param id Variable que indica que usuario se va a buscar en la base de datos.
+     *
+     * @param id Variable que indica que usuario se va a buscar en la base de
+     * datos.
      * @return Devuelve el Usuario encontrado.
      */
     public clsUsuario Consultar(String id) {
@@ -53,17 +55,18 @@ public class clsDAOUsuario {
     }
 
     /**
-     * Actualiza la información en la base de datos de los juegos del usuario que se recibe.
-     * @param usuario Variable que es el usuario que está jugando contra la máquina.
+     * Actualiza la información en la base de datos de los juegos del usuario
+     * que se recibe.
+     *
+     * @param usuario Variable que es el usuario que está jugando contra la
+     * máquina.
      * @return Devuelve un booleano que indica si se ejecutó la instrucción SQL.
      */
     public boolean Actualizar(clsUsuario usuario) {
         String sql = "UPDATE \"tblUsuario\" SET juegos_ganados= '" + usuario.getJuegos_ganados() + "', juegos_empatados='" + usuario.getJuegos_empatados() + "',"
                 + "juegos_perdidos='" + usuario.getJuegos_perdidos() + "' WHERE id = '" + usuario.getId() + "'";
         try {
-            conexion.Procesar(sql);
-            System.out.println("Modificó bien");
-            return true;
+            return conexion.Insertar(sql);
         } catch (Exception e) {
             System.out.println("Error al actualizar usuario");
             return false;
@@ -72,6 +75,7 @@ public class clsDAOUsuario {
 
     /**
      * Inserta en la base de datos el usuario que se recibe.
+     *
      * @param usuario Usuario que se va a insertar en la base de datos.
      * @return Devuelve un booleano que indica si se ejecutó la instrucción SQL.
      */
@@ -80,9 +84,7 @@ public class clsDAOUsuario {
                 + " VALUES ('" + usuario.getId() + "', '" + usuario.getNombre() + "',"
                 + usuario.getJuegos_ganados() + ", " + usuario.getJuegos_perdidos() + ", " + usuario.getJuegos_empatados() + ");";
         try {
-            conexion.Procesar(sql);
-            System.out.println("Insertó bien");
-            return true;
+            return conexion.Insertar(sql);
         } catch (Exception e) {
             System.out.println("Error al crear usuario");
             return false;
