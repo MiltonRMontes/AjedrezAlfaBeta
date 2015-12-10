@@ -128,10 +128,11 @@ public class clsAgenteGrafico extends GuiAgent {
      */
     protected String Cambiar_Mensaje(String respuesta_movimiento) {
         String cambio_respuesta_movimiento = "";
-        cambio_respuesta_movimiento = cambio_respuesta_movimiento + Cambiar_Letra(respuesta_movimiento.charAt(1));
-        cambio_respuesta_movimiento = cambio_respuesta_movimiento + Cambiar_Letra(respuesta_movimiento.charAt(0));
-        cambio_respuesta_movimiento = cambio_respuesta_movimiento + Cambiar_Letra(respuesta_movimiento.charAt(3));
-        cambio_respuesta_movimiento = cambio_respuesta_movimiento + Cambiar_Letra(respuesta_movimiento.charAt(2));
+        cambio_respuesta_movimiento += Cambiar_Letra(respuesta_movimiento.charAt(1));
+        cambio_respuesta_movimiento += Cambiar_Letra(respuesta_movimiento.charAt(0));
+        cambio_respuesta_movimiento += " - ";
+        cambio_respuesta_movimiento += Cambiar_Letra(respuesta_movimiento.charAt(3));
+        cambio_respuesta_movimiento += Cambiar_Letra(respuesta_movimiento.charAt(2));
         return cambio_respuesta_movimiento.replace(" ", "");
     }
 

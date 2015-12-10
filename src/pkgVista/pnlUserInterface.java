@@ -27,14 +27,35 @@ import pkgLogica.clsMovimientos;
 public class pnlUserInterface extends javax.swing.JPanel implements MouseListener, MouseMotionListener {
 
     /**
-     * Creates new form pnlUserInterface
+     * mouseX es la X donde se hace click. mouseY es la Y donde se hace click.
+     * newMouseX es la X donde se suelta el click. newMouseY es la Y donde se
+     * suelta el click.
      */
     int mouseX, mouseY, newMouseX, newMouseY;
+    /**
+     * Variable a la que se le asina el tamaño del tablero.
+     */
     static int squareSize = 32;
+    /**
+     * Variable que permite solamente una ejecución de la validación de
+     * movimientos.
+     */
     int una_vez = 0;
+    /**
+     * Variable que que guarda el id del usuario logueado.
+     */
     String id_usuario;
+    /**
+     * Variable que guarda el agente propietario del Panel.
+     */
     GuiAgent agentePropietario;
 
+    /**
+     * Constructor del panel, donde .
+     *
+     * @param agente Variable que tiene el agente propietario.
+     * @param humanAsWhite Variable que tiene el usuario que inicia el juego.
+     */
     public pnlUserInterface(GuiAgent agente, int humanAsWhite) {
         initComponents();
         this.agentePropietario = agente;
@@ -64,6 +85,11 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
         clsMovimientos.undoMove("7655 ");
     }
 
+    /**
+     * Método que pinta el tablero y las fichas.
+     *
+     * @param g Variable tipo Graphics.
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -134,11 +160,20 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
             }
         }
     }
-    
-    public void Decir_Movimiento(String movimiento){
+
+    /**
+     * Método que modifica el lblMostrarMovimiento donde se muestra el
+     * movimiento realizado por la máquina.
+     *
+     * @param movimiento Movimiento realizado por la máquina.
+     */
+    public void Decir_Movimiento(String movimiento) {
         lblMostrarRespuesta.setText(movimiento);
     }
 
+    /**
+     * Método donde se cambia el color del txaTurnoActual y se repinta.
+     */
     public void Repintar() {
         if (clsMovimientos.turno == 0) {
             jtaActual.setBackground(Color.BLACK);
@@ -148,6 +183,14 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
         repaint();
     }
 
+    /**
+     * Método que válida si el movimiento hecho por el usuario es válido,
+     * determina si el usuario está en Jaque, JaqueMate o tablas. También dice
+     * si ganó
+     *
+     * @param e Evento del mouse.
+     * @return Devuelve un string que es el movimiento hecho por el usuario.
+     */
     public String MoverFichas(MouseEvent e) {
         String dragMove = "";
         if (una_vez == 1) {
@@ -165,8 +208,8 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
                     }
                     String userPosibilities = clsMovimientos.posibleMoves();
 
+                    //if valid move
                     if (userPosibilities.replaceAll(dragMove, "").length() < userPosibilities.length()) {
-                        //if valid move
                     } else {
                         if (userPosibilities.length() < 1) {
                             JOptionPane.showMessageDialog(this, "JaqueMate", "Mate", 3);
@@ -213,11 +256,22 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
         return dragMove;
     }
 
+    /**
+     * Actualiza el usuario recibido en la base de datos con respecto al
+     * resultado del juego.
+     *
+     * @param usuario Variable que es el usuario que está actualmente logueado.
+     */
     private void Actualizar_Jugador(clsUsuario usuario) {
         clsDAOUsuario dao = new clsDAOUsuario();
         dao.Actualizar(usuario);
     }
 
+    /**
+     * Método que modifica los labels del usuario.
+     *
+     * @param usuario Variable que es el usuario que logueo o está jugando.
+     */
     private void ModificarLabels(clsUsuario usuario) {
         id_usuario = usuario.getId();
         lblMostrarUsuario.setText(usuario.getNombre());
@@ -231,6 +285,13 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
     public void mouseClicked(MouseEvent e) {
     }
 
+    /**
+     * Método que se dispara cuando se presiona el click. Si el click está
+     * dentro del área del tablero obtiene el X y el Y de donde se hizo click y
+     * asigna un 1 a la variable una_vez;
+     *
+     * @param e
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         if (e.getX() < 8 * squareSize && e.getY() < 8 * squareSize) {
@@ -238,10 +299,16 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
             this.mouseX = e.getX();
             this.mouseY = e.getY();
             this.una_vez = 1;
-            repaint();
+            Repintar();
         }
     }
 
+    /**
+     * Método que se dispara cuando se suelta el click. Envia el evento al
+     * agente.
+     *
+     * @param e
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         GuiEvent evento = new GuiEvent(e, 0);
@@ -380,21 +447,22 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblColorUsuario)
                                 .addGap(27, 27, 27)
                                 .addComponent(lblColorMaquina)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblColorActual))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblRespuesta)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblMostrarRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(lblRespuesta)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(lblMostrarRespuesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(56, 56, 56))))
         );
         layout.setVerticalGroup(
@@ -437,7 +505,18 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
                 .addContainerGap(32, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Evento del botón btnCrearUsuario que abre el frmCrearUsuario.
+     * @param evt 
+     */
+    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        frmCrearUsuario frm = new frmCrearUsuario();
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
+    /**
+     * Evento del botón btnLogin que muestra un Joption para ingresar el id del usuario
+     * @param evt 
+     */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         clsDAOUsuario daoUsuario = new clsDAOUsuario();
         clsUsuario usuario = daoUsuario.Consultar(JOptionPane.showInputDialog(this, "Digite su número de usuario", "Login", 1));
@@ -445,11 +524,6 @@ public class pnlUserInterface extends javax.swing.JPanel implements MouseListene
             ModificarLabels(usuario);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
-        frmCrearUsuario frm = new frmCrearUsuario();
-        frm.setVisible(true);
-    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearUsuario;

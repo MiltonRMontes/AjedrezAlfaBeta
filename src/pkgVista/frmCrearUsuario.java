@@ -94,8 +94,9 @@ public class frmCrearUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Método del botón btnGuardar donde me inserta un usuario en la base de datos
-     * @param evt 
+     * Método del botón btnGuardar donde me inserta un usuario en la base de datos.
+     * Luego oculta el frame.
+     * @param evt Evento del click en el botón.
      */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         id = txtDocumento.getText();
